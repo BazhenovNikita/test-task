@@ -13,7 +13,7 @@ class QueueRequests(Base):
     method = Column(String, nullable=False)
     params = Column(String)
     headers = Column(String)
-    processed = Column(Boolean, default=True)
+    processed = Column(Boolean, nullable=False)
     queue_response = relationship('QueueResponses', backref='queue_requests', uselist=False)
 
 
@@ -21,5 +21,5 @@ class QueueResponses(Base):
     __tablename__ = 'queue_responses'
     id = Column(Integer, primary_key=True)
     request_id = Column(Integer, ForeignKey('queue_requests.id'))
-    status_code = Column(Integer, nullable=False)
+    status_code = Column(Integer)
     body = Column(String)

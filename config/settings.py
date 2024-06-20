@@ -20,7 +20,7 @@ class Settings(pydantic_settings.BaseSettings):
 
     @property
     def sqlite_dsn(self):
-        return f'sqlite:///db/{self.db_name}.db'
+        return f'sqlite:///../dbdir/{self.db_name}.db'
 
     @property
     def mysql_dsn(self):

@@ -1,13 +1,13 @@
 from src.S1 import TakeInfoFromQueueRequests
 from src.S2 import WriteInfoInQueueResponses
-from src.database import InsertingTestData
+from concurrent.futures import ThreadPoolExecutor
+from config.settings import settings
 
 
 def main():
-
-    InsertingTestData.insert_data()
-    reqs = TakeInfoFromQueueRequests.fetch_requests()
-    r = WriteInfoInQueueResponses.process_request(reqs)
+    queries = TakeInfoFromQueueRequests.fetch_requests()
+    with ThreadPoolExecutor(max_workers=settings.max_workers) as executor:
+        executor.map(WriteInfoInQueueResponses.process_request, queries, timeout=settings.timeout)
 
 
 if __name__ == "__main__":
