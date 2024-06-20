@@ -3,3 +3,4 @@ psycopg2
 mysql-connector-python
 python-dotenv
 pydantic-settings
+sqlalchemy
